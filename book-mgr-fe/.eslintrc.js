@@ -16,7 +16,10 @@ module.exports = {
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
     "prettier/prettier": "off",
     // 关闭名称校验
-    'vue/multi-word-component-names': "off"
+    'vue/multi-word-component-names': "off",
+    "no-unused-vars": "off",
+    "vue/no-v-model-argument": "off"
+
 
   },
 };

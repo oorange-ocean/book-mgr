@@ -1,20 +1,20 @@
 const Koa = require('koa')
+const { koaBody } = require('koa-body');
+const { connect } = require('./db')
+const cors = require('koa-cors')
+const registerRoutes = require('./routers');
 
 const app = new Koa();
 
-const Router = require('@koa/router')
 
-const router = new Router({
-  prefix: '/auth'
-});
+connect().then(() => {
+  app.use(cors())
+  app.use(koaBody());
 
-router.get('/register', async (ctx) => {
-  ctx.body = '注册成功'
 
+  registerRoutes(app);
 })
 
-
-app.use(router.routes())
 app.listen(3000, () => {
   console.log('启动成功');
 })
