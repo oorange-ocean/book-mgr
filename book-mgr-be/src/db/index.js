@@ -1,5 +1,6 @@
 require('./Schemas/User.js')
 require('./Schemas/InviteCode.js')
+require('./Schemas/Book.js')
 const mongoose = require('mongoose');
 
 const connect = () => {

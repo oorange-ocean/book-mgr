@@ -12,6 +12,7 @@
     <a-divider/>
     <a-table :columns="columns" :data-source="dataSource"></a-table>
     </a-card>
+    <add-one></add-one>
   </div>
 </template>
 
