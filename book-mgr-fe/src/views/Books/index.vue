@@ -7,12 +7,12 @@
         <div class="search">
         <a-input-search placeholder="根据书名搜索" enter-button></a-input-search>
       </div>
-      <a-button>添加一条</a-button>
+      <a-button @click="open = true">添加一条</a-button>
       </space-between>
     <a-divider/>
-    <a-table :columns="columns" :data-source="dataSource"></a-table>
+    <a-table :columns="columns" :data-source="list"></a-table>
     </a-card>
-    <add-one></add-one>
+    <add-one v-model:open="open"  />
   </div>
 </template>
 

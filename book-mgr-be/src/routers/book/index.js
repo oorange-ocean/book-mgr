@@ -17,7 +17,6 @@ router.post('/add', async (ctx) => {
     publishDate,
     classify
   } = getBody(ctx).form
-  console.log(name, price, author, publishDate, classify);
 
   const book = new Book({
     name,
@@ -37,7 +36,7 @@ router.post('/add', async (ctx) => {
 
 })
 
-router.get('list', async (ctx) => {
+router.get('/list', async (ctx) => {
   const list = await Book.find().exec();
   ctx.body = {
     data: list,

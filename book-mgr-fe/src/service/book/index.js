@@ -7,6 +7,10 @@ export const add = (form) => {
   }
 
   )
+};
 
+export const list = () => {
+  return axios.get('http://localhost:3000/book/list',
 
+  )
 };

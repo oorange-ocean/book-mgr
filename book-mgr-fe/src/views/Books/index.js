@@ -1,5 +1,7 @@
-import { defineComponent } from 'vue'
+import { defineComponent, ref, onMounted } from 'vue'
 import AddOne from './AddOne/index.vue'
+import { book } from '../../service'
+import { result } from '@/helpers/utlis'
 
 export default defineComponent({
   components: {
@@ -7,24 +9,44 @@ export default defineComponent({
   },
   setup() {
     const columns = [{
-      title: '姓名',
+      title: '书名',
       dataIndex: 'name'
 
     },
     {
-      title: '年龄',
-      dataIndex: 'age'
+      title: '价格',
+      dataIndex: 'price'
 
-    }
+    },
+    {
+      title: '作者',
+      dataIndex: 'author'
+
+    },
+    {
+      title: '出版日期',
+      dataIndex: 'publishDate'
+
+    },
+    {
+      title: '分类',
+      dataIndex: 'classify'
+
+    },
+
     ]
-    const dataSource = [{
-      name: 'xiaohong',
-      age: 2
-    }]
+
+
+    const open = ref(false)
+
+    onMounted(async () => {
+      const res = await book.list()
+    }
+    )
 
     return {
       columns,
-      dataSource,
+      open,
     }
   }
 })
