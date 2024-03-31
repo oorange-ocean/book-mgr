@@ -10,7 +10,6 @@ const router = new Router({
 });
 
 router.post('/register', async (ctx) => {
-  console.log(ctx.request.body);
   const {
     account, password, inviteCode
   } = getBody(ctx)
@@ -26,7 +25,6 @@ router.post('/register', async (ctx) => {
   const findCode = await InviteCode.findOne({
     code: inviteCode,
   }).exec()
-  console.log(findCode);
   if ((!findCode) || findCode.user) {
     ctx.body = {
       code: 0,

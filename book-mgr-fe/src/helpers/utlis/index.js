@@ -51,5 +51,5 @@ export const formatTimestamp = (ts) => {
   const mm = tsPadStart(date.getMinutes());
   const ss = tsPadStart(date.getSeconds());
 
-  return `${YYYY}/${MM}/${DD} ${hh}:${mm}:${ss}`;
+  return `${YYYY}/${MM}/${DD}`;
 };

@@ -7,7 +7,8 @@ const defaultFormData = {
   price: 0,
   author: '',
   publishDate: 0,
-  classify: ''
+  classify: '',
+  count: ''
 }
 export default defineComponent({
   props: {
@@ -16,7 +17,6 @@ export default defineComponent({
   },
   setup(props, context) {
 
-    console.log(props);
     const addForm = reactive(clone(defaultFormData))
 
     const summit = async () => {
@@ -27,8 +27,12 @@ export default defineComponent({
         .success((d, { data }) => {
           Object.assign(addForm, defaultFormData)
           message.success(data.msg)
+          context.emit('getList')
+          close()
 
         })
+
+
 
     }
 

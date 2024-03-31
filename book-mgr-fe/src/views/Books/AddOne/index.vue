@@ -26,6 +26,9 @@
     <a-form-item label="分类">
       <a-input v-model:value="addForm.classify" />
     </a-form-item>
+    <a-form-item label="库存">
+      <a-input v-model:value="addForm.count" />
+    </a-form-item>
 
     
     </a-form>
