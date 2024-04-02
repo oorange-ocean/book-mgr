@@ -14,14 +14,22 @@ const routes = [
     children: [
       {
         path: 'books',
-        name: 'books',
+        name: 'Books',
         component: () => import(/* webpackChunkName: "Books" */ '../views/Books/index.vue'),
       },
+      {
+        path:'books/:id',
+        name:'BookDetail',
+        component:()=>import ('../views/BookDetail/index.vue')
+      }
 
     ]
   },
+  
 
 ];
+
+
 
 const router = createRouter({
   history: createWebHashHistory(),

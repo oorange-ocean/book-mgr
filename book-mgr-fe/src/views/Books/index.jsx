@@ -4,6 +4,7 @@ import { book } from '../../service'
 import { result, formatTimestamp } from '@/helpers/utlis'
 import { message, Modal, Input } from 'ant-design-vue'
 import Update from './Update/index.vue'
+import {useRouter} from 'vue-router'
 
 export default defineComponent({
   components: {
@@ -11,6 +12,7 @@ export default defineComponent({
     Update,
   },
   setup() {
+    const router = useRouter()
     const columns = [{
       title: '书名',
       dataIndex: 'name'
@@ -162,6 +164,10 @@ export default defineComponent({
         curEditBook.value = record;
     };
 
+    const toDetail = ({ record }) => {
+      router.push(`/books/${record._id}`);
+    };
+
     return {
       columns,
       open,
@@ -177,6 +183,7 @@ export default defineComponent({
       showUpdateModal,
       Update,
       curEditBook,
+      toDetail,
 
 
     }

@@ -22,6 +22,8 @@
         </template>
 
       <template #actions="record">
+        
+        <a href="javascript:;" @click="toDetail(record)">详情</a>&nbsp;
         <a href="javascript:;" @click="Update(record)">编辑</a>&nbsp;
         <a href="javascript:;" @click="remove(record)">删除</a>
       </template>
@@ -36,9 +38,6 @@
     </a-card>
     <add-one v-model:open="open"  @getList="getList"/>
     <update v-model:open="showUpdateModal" :book="curEditBook"  />
-    <updata
-
-    />
   </div>
 </template>
 
