@@ -37,23 +37,36 @@
     <div class="log">
       <a-card title="出入库日志" :headStyle="{ 'text-align': 'left' }">
         <template #extra>
-          <span>
-            <a href="#">出库日志</a>
-          </span>
+          
           <span style="margin:12px">
-            <a href="#">入库日志</a>
+            
+            <a href="javascript:;" 
+              @click="logFilter('IN_COUNT')"> 
+              <CheckOutlined v-if="curLogType==='IN_COUNT'" /> 
+              入库日志</a>
+          </span>
+          <span>
+            <a href="javascript:;" 
+              @click="logFilter('OUT_COUNT')" 
+               style="margin-left:12px"> 
+              <CheckOutlined  v-if="curLogType==='OUT_COUNT'" />
+              出库日志</a>
           </span>
         </template>
      <div>
-        <a-table pagination:false>
+        <a-table :data-source="log" 
+          :columns="columns">
+        <template #createdAt="{record}">
+            {{ formatTimestamp(record.meta.createdAt) }}
+        </template>
 
         </a-table>
      </div>
      <space-between style="margin-top:24px">
-        <div/>
-        <a-pagination>
+        <div />
+        <!-- <a-pagination>
 
-        </a-pagination>
+        </a-pagination> -->
      </space-between>
     </a-card>
     </div>

@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const { getBody } = require('../../helpers/utils')
 
 const Book = mongoose.model('Book')
+const InventoryLog = mongoose.model('InventoryLog')
 const BOOK_CONST = {
   IN: 'IN_COUNT',
   OUT: 'OUT_COUNT'
@@ -88,7 +89,6 @@ router.post('/update/count', async (ctx) => {
     id, type,
   } = getBody(ctx)
 
-  console.log(id, type);
   const book = await Book.findOne({
     _id: id
   }).exec()
@@ -121,6 +121,12 @@ router.post('/update/count', async (ctx) => {
     return;
   }
   const res = await book.save()
+
+  const log = new InventoryLog({
+    num: Math.abs(num),
+    type,
+  });
+  await log.save()
   ctx.body = {
     data: res,
     code: 1,
@@ -136,7 +142,7 @@ router.post('/update', async (ctx) => {
   } = ctx.request.body;
 
   const one = await Book.findOne({
-    _id:id
+    _id: id
   });
 
   // 没有找到书

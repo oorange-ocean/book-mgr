@@ -18,4 +18,6 @@ const BookSchema = new mongoose.Schema({
   meta: getMeta(),
 });
 
+BookSchema.pre('save', preSave);
+
 mongoose.model('Book', BookSchema);
