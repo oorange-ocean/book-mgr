@@ -19,7 +19,7 @@
                   </div>
 
                   <div class="item">
-                      <a-input size="large" placeholder="密码" v-model:value="loginForm.password">
+                      <a-input size="large" placeholder="密码" v-model:value="loginForm.password" >
                           <template v-slot:prefix>
                               <LockOutlined />
                           </template>
@@ -45,7 +45,7 @@
                   </div>
 
                   <div class="item">
-                      <a-input size="large" placeholder="密码" v-model:value="regForm.password">
+                      <a-input size="large" placeholder="密码" v-model:value="regForm.password" >
                           <template v-slot:prefix>
                               <LockOutlined />
                           </template>
