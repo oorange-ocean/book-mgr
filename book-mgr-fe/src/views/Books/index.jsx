@@ -1,10 +1,10 @@
 import { defineComponent, ref, onMounted, createVNode } from 'vue'
 import AddOne from './AddOne/index.vue'
 import { book } from '../../service'
-import { result, formatTimestamp } from '@/helpers/utlis'
+import { result, formatTimestamp } from '@/helpers/utils'
 import { message, Modal, Input } from 'ant-design-vue'
 import Update from './Update/index.vue'
-import {useRouter} from 'vue-router'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   components: {
@@ -62,8 +62,8 @@ export default defineComponent({
     const list = ref([]);
     const keyword = ref("")
     const isSearch = ref(false);
-    const showUpdateModal=ref(false)
-    const curEditBook=ref({})
+    const showUpdateModal = ref(false)
+    const curEditBook = ref({})
 
     const getList = async () => {
       const res = await book.list({
@@ -161,7 +161,7 @@ export default defineComponent({
 
     const Update = ({ record }) => {
       showUpdateModal.value = true;
-        curEditBook.value = record;
+      curEditBook.value = record;
     };
 
     const toDetail = ({ record }) => {

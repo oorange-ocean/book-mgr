@@ -2,6 +2,7 @@ const auth = require('./auth/index')
 const inviteCode = require('./invite-code')
 const book = require('./book')
 const inventoryLog = require('./inventory-log')
+const user = require('./user')
 
 module.exports = (app) => {
 
@@ -9,4 +10,5 @@ module.exports = (app) => {
   app.use(inviteCode.routes())
   app.use(book.routes())
   app.use(inventoryLog.routes())
+  app.use(user.routes())
 }

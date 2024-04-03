@@ -1,7 +1,7 @@
 import { defineComponent, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { book, inventoryLog } from '@/service'
-import { result, formatTimestamp } from '@/helpers/utlis'
+import { result, formatTimestamp } from '@/helpers/utils'
 import { message } from 'ant-design-vue'
 import { CheckOutlined } from '@ant-design/icons-vue'
 import Update from '@/views/Books/Update/index.vue'
