@@ -4,6 +4,7 @@ const User = mongoose.model('User')
 const InviteCode = mongoose.model('InviteCode')
 const { getBody } = require('../../helpers/utils/index')
 const jwt = require('jsonwebtoken')
+const config = require('../../project.config')
 
 const router = new Router({
   prefix: '/auth'
@@ -88,6 +89,7 @@ router.post('/login', async (ctx) => {
 
   const user = {
     account: one.account,
+    character: one.character,
     _id: one._id,
   };
 
@@ -97,10 +99,7 @@ router.post('/login', async (ctx) => {
       msg: '登入成功',
       data: {
         user,
-        token: jwt.sign({
-          account: one.account,
-          _id: one._id,
-        }, 'book-mgr'),
+        token: jwt.sign(user, config.JWT_SECRET),
       },
     };
 

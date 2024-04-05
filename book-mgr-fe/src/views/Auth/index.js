@@ -3,6 +3,10 @@ import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons-vue'
 import { auth } from '../../service'
 import { message } from 'ant-design-vue'
 import { result } from '../../helpers/utils/index'
+import store from '@/store'
+import { getCharacterInfoById } from '@/helpers/character';
+import { setToken } from '@/helpers/token';
+import { useRouter } from 'vue-router';
 export default defineComponent({
   components: {
     UserOutlined,
@@ -10,6 +14,7 @@ export default defineComponent({
     MailOutlined
   },
   setup() {
+    const router = useRouter()
     const regForm = reactive({
       account: '',
       password: '',
@@ -55,8 +60,15 @@ export default defineComponent({
         return;
       }
       const res = await auth.login(loginForm.account, loginForm.password)
-      result(res).success((data) => {
-        message.success(data.msg)
+      result(res).success(({ msg, data: { user, token } }) => {
+        message.success(msg)
+        store.commit('setUserInfo', user);
+        store.commit('setCharacterInfo', getCharacterInfoById(user.character))
+        console.log(store.state);
+        setToken(token)
+        router.replace('/books')
+
+
       })
     }
 

@@ -36,9 +36,9 @@ export const editCharacter = (characterId, userId) => {
   });
 };
 
-// export const info = () => {
-//   return get('/user/info');
-// };
+export const info = () => {
+  return axios.get('http://localhost:3000/user/info');
+};
 
 // export const addMany = (key) => {
 //   return post('/user/addMany', {

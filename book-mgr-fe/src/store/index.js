@@ -1,6 +1,6 @@
 import { createStore, Store } from 'vuex';
 import { character, user, goodClassify } from '@/service';
-// import { getCharacterInfoById } from '@/helpers/character';
+import { getCharacterInfoById } from '@/helpers/character';
 import { result } from '@/helpers/utils';
 
 export default createStore({
@@ -40,16 +40,16 @@ export default createStore({
           store.commit('setCharacterInfo', data);
         });
     },
-    // async getUserInfo(store) {
-    //   const res = await user.info();
+    async getUserInfo(store) {
+      const res = await user.info();
 
-    //   result(res)
-    //     .success(({ data }) => {
-    //       store.commit('setUserInfo', data);
-    //       store.commit('setUserCharacter', getCharacterInfoById(data.character));
+      result(res)
+        .success(({ data }) => {
+          store.commit('setUserInfo', data);
+          store.commit('setUserCharacter', getCharacterInfoById(data.character));
 
-    //       console.log(store.state);
-    //     });
-    // },
+          console.log(store.state);
+        });
+    },
   },
 });
