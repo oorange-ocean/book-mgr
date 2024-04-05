@@ -1,13 +1,28 @@
-import { defineComponent, ref, onMounted } from 'vue'
+import { defineComponent, ref, onMounted, reactive } from 'vue'
 import { user } from '@/service'
 import { result } from '@/helpers/utils'
 import { formatTimestamp } from '@/helpers/utils';
 import { message } from 'ant-design-vue'
+import { EditOutlined } from '@ant-design/icons-vue'
 import AddOne from './AddOne/index.vue';
-
+import { getCharacterInfoById } from '@/helpers/character';
+import store from '@/store'
 const showAddModal = ref(false)
 const keyword = ref('')
 const isSearch = ref(false)
+const showEditCharacterModal = ref(false)
+const editForm = reactive({
+  character: '',
+  current: {},
+});
+
+const onEdit = (record) => {
+  editForm.current = record;
+  editForm.character = record.character;
+
+  showEditCharacterModal.value = true;
+};
+
 const columns = [
   {
     title: '账户',
@@ -21,18 +36,19 @@ const columns = [
 
   },
   {
+    title: '角色',
+    slots: {
+      customRender: 'character',
+    },
+  },
+  {
     title: '操作',
     slots: {
       customRender: 'actions',
     },
 
   },
-  // {
-  //   title: '角色',
-  //   slots: {
-  //     customRender: 'character',
-  //   },
-  // },
+
   // {
   //   title: '操作',
   //   slots: {
@@ -51,6 +67,7 @@ const columns = [
 export default defineComponent({
   components: {
     AddOne,
+    EditOutlined,
   },
 
   setup() {
@@ -102,6 +119,17 @@ export default defineComponent({
       getUser();
     };
 
+    const updateCharacter = async () => {
+      const res = await user.editCharacter(editForm.character, editForm.current._id);
+
+      result(res)
+        .success(({ msg }) => {
+          message.success(msg);
+          showEditCharacterModal.value = false;
+          editForm.current.character = editForm.character;
+        });
+    };
+
     return {
       list,
       total,
@@ -115,6 +143,12 @@ export default defineComponent({
       isSearch,
       backAll,
       keyword,
+      getCharacterInfoById,
+      showEditCharacterModal,
+      editForm,
+      onEdit,
+      characterInfo: store.state.characterInfo,
+      updateCharacter,
 
     }
 
