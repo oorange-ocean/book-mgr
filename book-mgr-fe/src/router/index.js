@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import { service } from '@/service'
+import { user } from '@/service'
 import store from '@/store'
-
+import { message } from 'ant-design-vue'
 const routes = [
   {
     path: "/auth",
@@ -45,62 +45,54 @@ const router = createRouter({
 
 
 router.beforeEach(async (to, from, next) => {
+
+  let res = {};
+
+  try {
+    res = await user.info();
+  } catch (e) {
+    if (e.message.includes('code 401')) {
+      res.code = 401;
+    }
+  }
+
+  const { code } = res;
+
+  if (code === 401) {
+    if (to.path === '/auth') {
+      next();
+      return;
+    }
+
+    message.error('认证失败，请重新登入');
+    next('/auth');
+
+    return;
+  }
+
   if (!store.state.characterInfo.length) {
-    store.dispatch('getCharacterInfo');
-  };
+    await store.dispatch('getCharacterInfo');
+  }
 
-  store.dispatch('getUserInfo')
+  const reqArr = [];
 
-  next()
+  if (!store.state.userInfo.account) {
+    reqArr.push(store.dispatch('getUserInfo'));
+  }
 
-})
-//   let res = {};
+  // if (!store.state.goodClassify.length) {
+  //   reqArr.push(store.dispatch('getGoodClassify'));
+  // }
 
-//   try {
-//     res = await user.info();
-//   } catch (e) {
-//     if (e.message.includes('code 401')) {
-//       res.code = 401;
-//     }
-//   }
+  await Promise.all(reqArr);
 
-//   const { code } = res;
+  if (to.path === '/auth') {
+    next('/books');
+    return;
+  }
 
-//   if (code === 401) {
-//     if (to.path === '/auth') {
-//       next();
-//       return;
-//     }
-
-//     message.error('认证失败，请重新登入');
-//     next('/auth');
-
-//     return;
-//   }
-
-//   if (!store.state.characterInfo.length) {
-//     await store.dispatch('getCharacterInfo');
-//   }
-
-//   const reqArr = [];
-
-//   if (!store.state.userInfo.account) {
-//     reqArr.push(store.dispatch('getUserInfo'));
-//   }
-
-//   if (!store.state.goodClassify.length) {
-//     reqArr.push(store.dispatch('getGoodClassify'));
-//   }
-
-//   await Promise.all(reqArr);
-
-//   if (to.path === '/auth') {
-//     next('/goods');
-//     return;
-//   }
-
-//   next();
-// });
+  next();
+});
 
 
 export default router;

@@ -1,8 +1,6 @@
-import axios from 'axios'
-import { getToken } from '@/helpers/token';
-axios.defaults.headers['Authorization'] = `Bearer ${getToken()}`
+import { del, post, get } from '@/helpers/request'
 export const add = (form) => {
-  return axios.post('http://localhost:3000/book/add', {
+  return post('/book/add', {
     form,
   }
 
@@ -10,33 +8,33 @@ export const add = (form) => {
 };
 
 export const list = ({ keyword }) => {
-  return axios.get('http://localhost:3000/book/list', {
-    params: {
-      keyword: keyword
-    }
+  return get('/book/list', {
+
+    keyword: keyword
+
   }
   )
 };
 
 export const remove = (id) => {
-  return axios.delete(`http://localhost:3000/book${id}`,
+  return del(`/book${id}`,
   )
 };
 
 export const updateCount = (data = {}) => {
-  return axios.post(`http://localhost:3000/book/update/count`, data)
+  return post(`/book/update/count`, data)
 
 };
 
 export const update = (data = {}) => {
   console.log(data);
-  return axios.post(`http://localhost:3000/book/update`, data)
+  return post(`/book/update`, data)
 
 };
 
 export const detail = (id) => {
-  return axios.get(
-    `http://localhost:3000/book/detail/${id}`,
+  return get(
+    `/book/detail/${id}`,
   );
 };
 

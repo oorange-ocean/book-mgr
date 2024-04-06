@@ -1,12 +1,13 @@
-import axios from 'axios'
+import { post, get } from '@/helpers/request'
+
 export const list = () => {
-  return axios.get('http://localhost:3000/log/list', {
+  return get('/log/list', {
 
   });
 };
 
 export const remove = (id) => {
-  return axios.post('http://localhost:3000/log/delete', {
+  return post('/log/delete', {
     id,
   });
 };

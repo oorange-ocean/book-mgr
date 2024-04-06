@@ -60,6 +60,9 @@ router.get('/list', async (ctx) => {
   }
   const list = await Book
     .find(query)
+    .sort({
+      _id: -1,
+    })
     .exec();
   ctx.body = {
     data: list,

@@ -1,11 +1,11 @@
-import axios from 'axios'
+import { del, post, get } from '@/helpers/request'
 
 export const list = (type = 'IN_COUNT',) => {
-  return axios.get(
-    'http://localhost:3000/inventory-log/list', {
-    params: {
-      type,
-    }
+  return get(
+    '/inventory-log/list', {
+
+    type,
+
   }
   )
 }

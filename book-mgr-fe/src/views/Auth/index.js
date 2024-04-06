@@ -60,12 +60,13 @@ export default defineComponent({
         return;
       }
       const res = await auth.login(loginForm.account, loginForm.password)
-      result(res).success(({ msg, data: { user, token } }) => {
+      result(res).success(async ({ msg, data: { user, token } }) => {
         message.success(msg)
+        setToken(token)
+        await store.commit('getCharacterInfo')
         store.commit('setUserInfo', user);
         store.commit('setCharacterInfo', getCharacterInfoById(user.character))
         console.log(store.state);
-        setToken(token)
         router.replace('/books')
 
 
