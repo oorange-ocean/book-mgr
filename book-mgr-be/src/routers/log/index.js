@@ -10,23 +10,23 @@ const router = new Router({
 });
 
 router.get('/list', async (ctx) => {
-  // let {
-  //   page,
-  //   size,
-  // } = ctx.query;
+  let {
+    page,
+    size,
+  } = ctx.query;
 
-  // page = Number(page);
-  // size = Number(size);
+  page = Number(page);
+  size = Number(size);
 
   const list = await Log
     .find({
-      // show: true,
+      show: true,
     })
     .sort({
       _id: -1,
     })
-    // .skip((page - 1) * size)
-    // .limit(size)
+    .skip((page - 1) * size)
+    .limit(size)
     .exec();
 
   const total = await Log.countDocuments().exec();
@@ -34,8 +34,8 @@ router.get('/list', async (ctx) => {
   ctx.body = {
     data: {
       list,
-      // page,
-      // size,
+      page,
+      size,
       total,
     },
     code: 1,

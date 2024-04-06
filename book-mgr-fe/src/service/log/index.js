@@ -1,8 +1,10 @@
-import { post, get } from '@/helpers/request'
-
-export const list = () => {
+import {
+  post, get
+} from '@/helpers/request';
+export const list = (page, size) => {
   return get('/log/list', {
-
+    page,
+    size,
   });
 };
 

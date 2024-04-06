@@ -4,7 +4,7 @@ require('./Schemas/Book.js')
 require('./Schemas/InventoryLog.js')
 require('./Schemas/Character.js')
 const mongoose = require('mongoose');
-
+require('./Schemas/Log.js')
 
 const connect = () => {
 

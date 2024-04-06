@@ -23,4 +23,8 @@ nav {
     }
   }
 }
+
+#webpack-dev-server-client-overlay {
+  display: none !important;
+}
 </style>

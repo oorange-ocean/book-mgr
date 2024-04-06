@@ -4,6 +4,7 @@ const book = require('./book')
 const inventoryLog = require('./inventory-log')
 const user = require('./user')
 const character = require('./character')
+const log = require('./log')
 
 module.exports = (app) => {
 
@@ -13,4 +14,5 @@ module.exports = (app) => {
   app.use(inventoryLog.routes())
   app.use(user.routes())
   app.use(character.routes())
+  app.use(log.routes())
 }

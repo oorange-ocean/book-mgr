@@ -41,9 +41,9 @@ export default defineComponent({
     }
 
     const getList = async () => {
-      loading.value = true;
+      // loading.value = true;
       const res = await log.list(curPage.value, 20);
-      loading.value = false;
+      // loading.value = false;
 
       result(res)
         .success(({ data: { list: l, total: t } }) => {
@@ -84,7 +84,7 @@ export default defineComponent({
       loading,
       formatTimestamp,
       remove,
-      // simple: props.simple,
+      //simple: props.simple,
     };
   },
 });

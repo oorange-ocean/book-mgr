@@ -1,11 +1,10 @@
 <template>
   <div>
-   <a-spin :spinning="loading">
     <a-card
       :title="simple ? $$.PAGE_META.DASHBOARD.RECENT.RIGHT_TITLE : ''"
     >
       <div v-if="!simple">
-        <h2>操作日志</h2>
+        <h2 style="text-align: left;">操作日志</h2>
 
         <a-divider />
       </div>
@@ -15,6 +14,7 @@
           bordered
           :columns="columns"
           :data-source="list"
+          :pagination="false"
           :scroll="{ x: 'max-content' }"
         >
           <template #createdAt="{ record }">
@@ -27,11 +27,16 @@
       </div>
 
       <flex-end v-if="!simple" style="margin-top: 24px">
-       
+        <a-pagination
+          v-model:current="curPage"
+          :pageSize="20"
+          :total="total"
+          @change="setPage"
+        />
       </flex-end>
 
     </a-card>
-   </a-spin>
+
   </div>
 </template>
 
