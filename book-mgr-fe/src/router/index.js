@@ -39,6 +39,11 @@ const routes = [
         name: 'ResetPassword',
         component: () => import(/* webpackChunkName: "ResetPassword" */ '../views/ResetPassword/index.vue'),
       },
+      {
+        path: 'invite-code',
+        name: 'InviteCode',
+        component: () => import(/* webpackChunkName: "InviteCode" */ '../views/InviteCode/index.vue'),
+      },
     ]
   },
 

@@ -35,11 +35,11 @@ export default [
         url: '/reset/password',
         onlyAdmin: true,
       },
-      // {
-      //   title: '邀请码管理',
-      //   url: '/invite-code',
-      //   onlyAdmin: true,
-      // },
+      {
+        title: '邀请码管理',
+        url: '/invite-code',
+        onlyAdmin: true,
+      },
     ],
   },
   // {
