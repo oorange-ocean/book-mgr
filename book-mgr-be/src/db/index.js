@@ -6,6 +6,7 @@ require('./Schemas/Character.js')
 const mongoose = require('mongoose');
 require('./Schemas/Log.js')
 require('./Schemas/LogResponse.js')
+require('./Schemas/ForgetPassword.js')
 
 const connect = () => {
 

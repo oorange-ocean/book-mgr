@@ -1,7 +1,7 @@
 import { defineComponent, reactive } from 'vue';
 import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons-vue';
-import { auth } from '../../service'
-import { message } from 'ant-design-vue'
+import { auth, resetPassword } from '../../service'
+import { message, Modal, Input } from 'ant-design-vue'
 import { result } from '../../helpers/utils/index'
 import store from '@/store'
 import { getCharacterInfoById } from '@/helpers/character';
@@ -73,11 +73,34 @@ export default defineComponent({
       })
     }
 
+    const forgetPassword = () => {
+      Modal.confirm({
+        title: `输入账号发起申请，管理员会审核`,
+        content: (
+          <div>
+            <Input class="__forget_password_account" />
+          </div>
+        ),
+        onOk: async () => {
+          const el = document.querySelector('.__forget_password_account');
+          let account = el.value;
+
+          const res = await resetPassword.add(account);
+
+          result(res)
+            .success(({ msg }) => {
+              message.success(msg);
+            });
+        },
+      });
+    };
+
     return {
       regForm,
       register,
       login,
-      loginForm
+      loginForm,
+      forgetPassword,
     }
 
   }
