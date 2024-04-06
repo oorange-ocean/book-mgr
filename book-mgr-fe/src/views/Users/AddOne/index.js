@@ -12,7 +12,7 @@ const defaultFormData = {
 
 export default defineComponent({
   props: {
-    show: Boolean,
+    open: Boolean,
   },
   setup(props, context) {
     const { characterInfo } = store.state;
@@ -22,7 +22,7 @@ export default defineComponent({
     addForm.character = characterInfo[1]._id;
 
     const close = () => {
-      context.emit('update:show', false);
+      context.emit('update:open', false);
     };
 
     const submit = async () => {

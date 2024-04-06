@@ -2,7 +2,7 @@
   <div>
     <a-modal
       title="添加一个用户"
-      :visible="props.show"
+      v-model:open="props.open"
       @ok="submit"
       @cancel="close"
     >
