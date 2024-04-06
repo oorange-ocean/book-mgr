@@ -5,6 +5,7 @@ require('./Schemas/InventoryLog.js')
 require('./Schemas/Character.js')
 const mongoose = require('mongoose');
 require('./Schemas/Log.js')
+require('./Schemas/LogResponse.js')
 
 const connect = () => {
 

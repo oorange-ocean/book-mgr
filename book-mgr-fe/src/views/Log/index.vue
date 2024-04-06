@@ -1,5 +1,6 @@
 <template>
   <div>
+    <a-spin :spinning="loading">
     <a-card
       :title="simple ? $$.PAGE_META.DASHBOARD.RECENT.RIGHT_TITLE : ''"
     >
@@ -36,7 +37,7 @@
       </flex-end>
 
     </a-card>
-
+   </a-spin>
   </div>
 </template>
 

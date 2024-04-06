@@ -17,7 +17,7 @@ export default defineComponent({
     const columns = [
       {
         title: '用户名',
-        dataIndex: 'user.account',
+        dataIndex: 'user',
       },
       {
         title: '动作',
@@ -41,9 +41,9 @@ export default defineComponent({
     }
 
     const getList = async () => {
-      // loading.value = true;
+      loading.value = true;
       const res = await log.list(curPage.value, 20);
-      // loading.value = false;
+      loading.value = false;
 
       result(res)
         .success(({ data: { list: l, total: t } }) => {

@@ -2,10 +2,8 @@ const mongoose = require('mongoose');
 const { getMeta, preSave } = require('../helpers');
 
 const LogSchema = new mongoose.Schema({
-  user: {
-    account: String,
-    id: String,
-  },
+  user: String,
+
 
   request: {
     method: String,

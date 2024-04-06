@@ -43,10 +43,8 @@ const logMiddleware = async (ctx, next) => {
   const endTime = Date.now();
 
   const log = new Log({
-    user: {
-      account: payload.account,
-      id: payload.id,
-    },
+    user: payload.account,
+
     request: {
       url,
       method,
