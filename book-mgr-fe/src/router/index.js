@@ -45,10 +45,11 @@ const router = createRouter({
 
 
 router.beforeEach(async (to, from, next) => {
-  console.log(store.state.characterInfo.length);
   if (!store.state.characterInfo.length) {
-    await store.dispatch('getCharacterInfo');
+    store.dispatch('getCharacterInfo');
   };
+
+  store.dispatch('getUserInfo')
 
   next()
 

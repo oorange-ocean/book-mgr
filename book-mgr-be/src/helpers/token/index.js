@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken');
-const config = require('../../project.config.js');
+const config = require('../../project.config');
 const koaJwt = require('koa-jwt');
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-// const User = mongoose.model('User');
+const User = mongoose.model('User');
 
 const getToken = (ctx) => {
   let { authorization } = ctx.header;
@@ -28,48 +28,52 @@ const middleware = (app) => {
   app.use(koaJwt({
     secret: config.JWT_SECRET,
   }).unless({
-    path: () => true // 这将绕过所有路由的JWT验证
+    path: [
+      /^\/auth\/login/,
+      /^\/auth\/register/,
+      /^\/forget-password\/add/,
+    ],
   }));
 };
 
-// const res401 = (ctx) => {
-//   ctx.status = 401;
-//   ctx.body = {
-//     code: 0,
-//     msg: '用户校验失败',
-//   };
-// };
+const res401 = (ctx) => {
+  ctx.status = 401;
+  ctx.body = {
+    code: 0,
+    msg: '用户校验失败',
+  };
+};
 
-// const checkUser = async (ctx, next) => {
-//   const { path } = ctx;
-//   if (path === '/auth/login' || path === '/auth/register' || path === '/forget-password/add') {
-//     await next();
-//     return;
-//   }
+const checkUser = async (ctx, next) => {
+  const { path } = ctx;
+  if (path === '/auth/login' || path === '/auth/register' || path === '/forget-password/add') {
+    await next();
+    return;
+  }
 
-//   const { _id, account, character } = await verify(getToken(ctx));
+  const { _id, account, character } = await verify(getToken(ctx));
 
-//   const user = await User.findOne({
-//     _id,
-//   }).exec();
+  const user = await User.findOne({
+    _id,
+  }).exec();
 
-//   if (!user) {
-//     res401(ctx);
-//     return;
-//   }
+  if (!user) {
+    res401(ctx);
+    return;
+  }
 
-//   if (account !== user.account) {
-//     res401(ctx);
-//     return;
-//   }
+  if (account !== user.account) {
+    res401(ctx);
+    return;
+  }
 
-//   if (character !== user.character) {
-//     res401(ctx);
-//     return;
-//   }
+  if (character !== user.character) {
+    res401(ctx);
+    return;
+  }
 
-//   await next();
-// };
+  await next();
+};
 
 const catchTokenError = async (ctx, next) => {
   return next().catch((error) => {
@@ -91,5 +95,5 @@ module.exports = {
   getToken,
   middleware,
   catchTokenError,
-  // checkUser,
+  checkUser,
 };
