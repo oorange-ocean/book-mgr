@@ -25,11 +25,11 @@ export default [
     title: '杂项',
     // onlyAdmin: false,
     children: [
-      // {
-      //   title: `${_.KEYWORD}分类管理`,
-      //   url: '/good-classify',
-      //   onlyAdmin: true,
-      // },
+      {
+        title: `书籍分类管理`,
+        url: '/book-classify',
+        onlyAdmin: true,
+      },
       {
         title: '重制密码列表',
         url: '/reset/password',

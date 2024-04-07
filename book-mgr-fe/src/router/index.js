@@ -44,6 +44,11 @@ const routes = [
         name: 'InviteCode',
         component: () => import(/* webpackChunkName: "InviteCode" */ '../views/InviteCode/index.vue'),
       },
+      {
+        path: 'book-classify',
+        name: 'BookClassify',
+        component: () => import(/* webpackChunkName: "GoodClassify" */ '../views/BookClassify/index.vue'),
+      },
     ]
   },
 

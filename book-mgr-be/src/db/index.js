@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 require('./Schemas/Log.js')
 require('./Schemas/LogResponse.js')
 require('./Schemas/ForgetPassword.js')
+require('./Schemas/BookClassify.js')
 
 const connect = () => {
 
