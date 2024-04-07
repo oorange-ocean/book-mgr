@@ -47,7 +47,7 @@ const routes = [
       {
         path: 'book-classify',
         name: 'BookClassify',
-        component: () => import(/* webpackChunkName: "GoodClassify" */ '../views/BookClassify/index.vue'),
+        component: () => import(/* webpackChunkName: "BookClassify" */ '../views/BookClassify/index.vue'),
       },
     ]
   },
@@ -99,9 +99,9 @@ router.beforeEach(async (to, from, next) => {
     reqArr.push(store.dispatch('getUserInfo'));
   }
 
-  // if (!store.state.goodClassify.length) {
-  //   reqArr.push(store.dispatch('getGoodClassify'));
-  // }
+  if (!store.state.bookClassify.length) {
+    reqArr.push(store.dispatch('getBookClassify'));
+  }
 
   await Promise.all(reqArr);
 

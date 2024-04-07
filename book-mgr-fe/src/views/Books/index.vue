@@ -17,6 +17,9 @@
       </space-between>
     <a-divider/>
     <a-table :columns="columns" :data-source="list">
+      <template #classify="{ record }">
+          {{ getClassifyTitleById(record.classify) }}
+        </template>
       <template #publishDate="data"> 
           {{ formatTimestamp(data.record.publishDate) }}
         </template>

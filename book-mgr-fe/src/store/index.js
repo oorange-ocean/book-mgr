@@ -1,12 +1,12 @@
 import { createStore, Store } from 'vuex';
-import { character, user, goodClassify } from '@/service';
+import { character, user, bookClassify } from '@/service';
 import { getCharacterInfoById } from '@/helpers/character';
 import { result } from '@/helpers/utils';
 
 export default createStore({
   state: {
     characterInfo: [],
-    goodClassify: [],
+    bookClassify: [],
     userInfo: {},
     userCharacter: {},
   },
@@ -20,19 +20,19 @@ export default createStore({
     setUserCharacter(state, userCharacter) {
       state.userCharacter = userCharacter;
     },
-    setGoodClassify(state, goodClassify) {
-      state.goodClassify = goodClassify;
+    setBookClassify(state, bookClassify) {
+      state.bookClassify = bookClassify;
     },
   },
   actions: {
-    // async getGoodClassify(store) {
-    //   const res = await goodClassify.list();
+    async getBookClassify(store) {
+      const res = await bookClassify.list();
 
-    //   result(res)
-    //     .success(({ data }) => {
-    //       store.commit('setGoodClassify', data);
-    //     });
-    // },
+      result(res)
+        .success(({ data }) => {
+          store.commit('setBookClassify', data);
+        });
+    },
     async getCharacterInfo(store) {
       const res = await character.list();
       result(res)

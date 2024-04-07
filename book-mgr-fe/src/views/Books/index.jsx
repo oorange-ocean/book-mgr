@@ -1,10 +1,11 @@
 import { defineComponent, ref, onMounted, createVNode } from 'vue'
 import AddOne from './AddOne/index.vue'
-import { book } from '../../service'
+import { book, bookClassify } from '../../service'
 import { result, formatTimestamp } from '@/helpers/utils'
 import { message, Modal, Input } from 'ant-design-vue'
 import Update from './Update/index.vue'
 import { useRouter } from 'vue-router'
+import { getClassifyTitleById } from '@/helpers/book-classify';
 
 export default defineComponent({
   components: {
@@ -38,8 +39,9 @@ export default defineComponent({
     },
     {
       title: '分类',
-      dataIndex: 'classify'
-
+      slots: {
+        customRender: 'classify',
+      },
     },
     {
       title: '库存',
@@ -184,6 +186,7 @@ export default defineComponent({
       Update,
       curEditBook,
       toDetail,
+      getClassifyTitleById,
 
 
     }

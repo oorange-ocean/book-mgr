@@ -2,6 +2,7 @@ import { defineComponent, reactive } from 'vue'
 import { book } from '../../../service/index.js'
 import { result, clone } from '../../../helpers/utils/index.js'
 import { message } from 'ant-design-vue'
+import store from '@/store';
 const defaultFormData = {
   name: '',
   price: 0,
@@ -18,6 +19,9 @@ export default defineComponent({
   setup(props, context) {
 
     const addForm = reactive(clone(defaultFormData))
+    if (store.state.bookClassify.length) {
+      addForm.classify = store.state.bookClassify[0]._id;
+    }
 
     const summit = async () => {
       const form = clone(addForm)
@@ -47,6 +51,7 @@ export default defineComponent({
       summit,
       props,
       close,
+      store: store.state
     }
   }
 
