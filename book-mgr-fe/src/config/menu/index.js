@@ -42,9 +42,9 @@ export default [
       },
     ],
   },
-  // {
-  //   title: '个人设置',
-  //   url: '/profile',
-  //   onlyAdmin: false,
-  // },
+  {
+    title: '个人设置',
+    url: '/profile',
+    onlyAdmin: false,
+  },
 ];

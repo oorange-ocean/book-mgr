@@ -76,7 +76,6 @@ router.delete(':id', async (ctx) => {
   const {
     id,
   } = ctx.params;
-  console.log("执行了" + id);
   const delMsg = await Book.deleteOne({
     _id: id,
   })
