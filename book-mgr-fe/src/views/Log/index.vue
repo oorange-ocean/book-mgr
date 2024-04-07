@@ -2,7 +2,7 @@
   <div>
     <a-spin :spinning="loading">
     <a-card
-      :title="simple ? $$.PAGE_META.DASHBOARD.RECENT.RIGHT_TITLE : ''"
+     
     >
       <div v-if="!simple">
         <h2 style="text-align: left;">操作日志</h2>
