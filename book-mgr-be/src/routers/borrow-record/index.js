@@ -66,13 +66,26 @@ router.get('/', async (ctx) => {
 });
 
 // 根据用户 ID 获取借阅记录
+// 根据用户 ID 获取借阅记录
+// 根据用户 ID 获取借阅记录
 router.get('/user/:userId', async (ctx) => {
   try {
     const userId = ctx.params.userId;
-    const borrowRecords = await BorrowRecord.find({ user: userId });
+    const borrowRecords = await BorrowRecord.find({ user: userId }).populate('book');
+
+    // 计算应还日期为借阅日期的一个月之后
+    const data = borrowRecords.map(record => ({
+      bookName: record.book.name,
+      borrowDate: record.borrowDate,
+      dueDate: new Date(record.borrowDate.getTime() + 30 * 24 * 60 * 60 * 1000), // 加上一个月的毫秒数
+      returnDate: record.returnDate,
+      returned: record.returned,
+      renewed: record.renewed
+    }));
+
     ctx.body = {
       msg: '查询成功',
-      data: borrowRecords,
+      data: data,
       code: 1
     };
   } catch (err) {
@@ -83,6 +96,8 @@ router.get('/user/:userId', async (ctx) => {
     };
   }
 });
+
+
 
 // 根据书籍 ID 获取借阅记录
 router.get('/book/:bookId', async (ctx) => {
