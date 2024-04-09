@@ -44,10 +44,8 @@ export default defineComponent({
       }
     };
 
-    const returnBook = async ({ bookId }) => {
-      // console.log(record);
-
-      const res = await borrowRecord.markReturned(store.state.userInfo._id, bookId);
+    const returnBook = async ({ recordId }) => {
+      const res = await borrowRecord.markReturned(recordId);
       result(res)
         .success(({ msg }) => {
           message.success(msg)
@@ -55,8 +53,14 @@ export default defineComponent({
       fetchBorrowRecords();
     };
 
-    const renewBook = async (recordId) => {
-      await borrowRecord.markRenewed(recordId);
+    const renewBook = async ({ recordId }) => {
+      // console.log(recordId);
+      const res = await borrowRecord.markRenewed(recordId);
+      result(res)
+        .success(({ msg }) => {
+          message.success(msg)
+
+        })
       fetchBorrowRecords();
     };
 
