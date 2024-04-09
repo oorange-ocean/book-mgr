@@ -31,3 +31,9 @@ export const get = (url, data = {}) => {
     headers: getHeaders(),
   })
 };
+
+export const put = (url, data = {}) => {
+  return axios.put(getURL(url), data, {
+    headers: getHeaders(),
+  });
+};

@@ -12,8 +12,13 @@ export default [
     onlyAdmin: 0,
   },
   {
-    title: `书籍借阅`,
+    title: `图书列表`,
     url: '/borrow-record',
+    onlyAdmin: 1,
+  },
+  {
+    title: `借阅管理`,
+    url: '/borrow-detail',
     onlyAdmin: 1,
   },
   {
