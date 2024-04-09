@@ -93,12 +93,33 @@ export default defineComponent({
       const bookId = record._id;
       const userId = store.state.userInfo._id;
       const BorrowTime = Date.now()
-      const res = await borrowRecord.addBorrowRecord(userId, bookId, BorrowTime)
+      let res = await borrowRecord.addBorrowRecord(userId, bookId, BorrowTime)
       result(res)
         .success(({ msg }) => {
-          message.success(msg)
-
+          message.success(msg);
         })
+
+      res = await book.updateCount({
+        id: record._id,
+        num: 1,
+        type: 'OUT_COUNT'
+      })
+
+      result(res)
+        .success((data) => {
+
+          const one = list.value.find((item) => {
+            return item._id === record._id;
+          });
+
+          if (one) {
+            one.count = one.count - 1;
+
+
+          }
+        });
+
+      getList()
 
     }
 
