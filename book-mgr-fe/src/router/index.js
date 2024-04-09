@@ -59,6 +59,12 @@ const routes = [
         name: 'Dashboard',
         component: () => import(/* webpackChunkName: "Dashboard" */ '../views/Dashboard/index.vue'),
       },
+      //borrow-records
+      {
+        path: 'borrow-record',
+        name: 'BorrowRecord',
+        component: () => import(/* webpackChunkName: "BorrowRecords" */ '../views/BorrowRecord/index.vue'),
+      },
     ]
   },
 

@@ -13,7 +13,7 @@
           <a v-if="isSearch" href="javascript:;" @click="backAll" >返回</a>
         </div>
       
-      <a-button @click="open = true">添加一条</a-button>
+     
       </space-between>
     <a-divider/>
     <a-table :columns="columns" :data-source="list">
@@ -26,17 +26,9 @@
 
       <template #actions="record">
         
-        <a href="javascript:;" @click="toDetail(record)">详情</a>&nbsp;
-        <a href="javascript:;" @click="Update(record)">编辑</a>&nbsp;
-        <a href="javascript:;" @click="remove(record)">删除</a>
+        <a href="javascript:;" @click="borrow(record)">借阅</a>&nbsp;
       </template>
-      <template #count="data"> 
-        <a href="javascript:;" @click="updateCount('IN_COUNT',data.record)">入库</a>&nbsp;
-
-          {{ data.record.count }}
-          &nbsp;<a href="javascript:;" @click="updateCount('OUT_COUNT',data.record)">出库</a>
-
-        </template>
+      
     </a-table>
     </a-card>
     

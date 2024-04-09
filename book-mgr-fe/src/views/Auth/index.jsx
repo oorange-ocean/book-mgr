@@ -68,7 +68,12 @@ export default defineComponent({
         store.commit('setUserInfo', user);
         store.commit('setUserCharacter', getCharacterInfoById(user.character));
         console.log(store.state);
-        router.replace('/books')
+        if (store.state.userCharacter.name === 'admin') {
+          router.replace('/books')
+        }
+        else {
+          router.replace('/borrow-record')
+        }
 
 
       })

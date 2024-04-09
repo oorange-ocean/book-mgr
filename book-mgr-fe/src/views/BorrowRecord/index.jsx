@@ -42,9 +42,7 @@ export default defineComponent({
     },
     {
       title: '库存',
-      slots: {
-        customRender: 'count'
-      }
+      dataIndex: 'count'
 
     },
     {
