@@ -8,6 +8,7 @@ require('./Schemas/Log.js')
 require('./Schemas/LogResponse.js')
 require('./Schemas/ForgetPassword.js')
 require('./Schemas/BookClassify.js')
+require('./Schemas/BorrowRecord.js')
 
 const connect = () => {
 

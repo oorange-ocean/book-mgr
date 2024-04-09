@@ -9,9 +9,9 @@ const router = new Router({
 });
 
 // 创建借阅记录
-router.post('/', async (ctx) => {
+router.post('/add', async (ctx) => {
   try {
-    const { userId, bookId, dueDate } = ctx.request.body;
+    const { userId, bookId, borrowDate } = ctx.request.body;
 
     const user = await User.findById(userId);
     const book = await Book.findById(bookId);
@@ -28,7 +28,7 @@ router.post('/', async (ctx) => {
     const borrowRecord = new BorrowRecord({
       user: userId,
       book: bookId,
-      dueDate: dueDate
+      borrowDate: borrowDate
     });
 
     await borrowRecord.save();

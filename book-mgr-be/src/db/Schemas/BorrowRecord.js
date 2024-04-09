@@ -20,7 +20,7 @@ const BorrowRecordSchema = new Schema({
   // 应归还日期
   dueDate: {
     type: Date,
-    required: true
+    //  required: true
   },
   // 实际归还日期
   returnDate: {

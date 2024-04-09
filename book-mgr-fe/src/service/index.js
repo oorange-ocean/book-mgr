@@ -9,3 +9,4 @@ export * as inviteCode from './invite-code';
 export * as bookClassify from './book-classify'
 export * as profile from './profile'
 export * as dashboard from './dashboard'
+export * as borrowRecord from './borrow-record'

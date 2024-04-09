@@ -2,11 +2,11 @@ import {
   del, post, get, put
 } from '@/helpers/request';
 
-export const addBorrowRecord = (userId, bookId, dueDate) => {
-  return post('/borrow-record', {
+export const addBorrowRecord = (userId, bookId, borrowDate) => {
+  return post('/borrow-record/add', {
     userId,
     bookId,
-    dueDate,
+    borrowDate,
   });
 };
 
