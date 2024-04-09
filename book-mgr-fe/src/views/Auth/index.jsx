@@ -63,9 +63,10 @@ export default defineComponent({
       result(res).success(async ({ msg, data: { user, token } }) => {
         message.success(msg)
         setToken(token)
-        await store.commit('getCharacterInfo')
+        await store.dispatch('getCharacterInfo');
+
         store.commit('setUserInfo', user);
-        store.commit('setCharacterInfo', getCharacterInfoById(user.character))
+        store.commit('setUserCharacter', getCharacterInfoById(user.character));
         console.log(store.state);
         router.replace('/books')
 
