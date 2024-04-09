@@ -67,17 +67,17 @@ router.get('/', async (ctx) => {
 
 // 根据用户 ID 获取借阅记录
 // 根据用户 ID 获取借阅记录
-// 根据用户 ID 获取借阅记录
 router.get('/user/:userId', async (ctx) => {
   try {
     const userId = ctx.params.userId;
     const borrowRecords = await BorrowRecord.find({ user: userId }).populate('book');
 
-    // 计算应还日期为借阅日期的一个月之后
+    // 从借阅记录中提取书名和书籍ID，并计算应还日期
     const data = borrowRecords.map(record => ({
+      bookId: record.book._id,
       bookName: record.book.name,
       borrowDate: record.borrowDate,
-      dueDate: new Date(record.borrowDate.getTime() + 30 * 24 * 60 * 60 * 1000), // 加上一个月的毫秒数
+      dueDate: new Date(record.borrowDate.getTime() + 30 * 24 * 60 * 60 * 1000), // 一个月后的日期
       returnDate: record.returnDate,
       returned: record.returned,
       renewed: record.renewed
@@ -96,8 +96,6 @@ router.get('/user/:userId', async (ctx) => {
     };
   }
 });
-
-
 
 // 根据书籍 ID 获取借阅记录
 router.get('/book/:bookId', async (ctx) => {
@@ -119,24 +117,40 @@ router.get('/book/:bookId', async (ctx) => {
 });
 
 // 更新借阅记录（标记归还）
-router.put('/:id/return', async (ctx) => {
+// 更新借阅记录（标记归还）
+router.put('/:userId/:bookId/return', async (ctx) => {
   try {
-    const borrowRecordId = ctx.params.id;
-    const borrowRecord = await BorrowRecord.findById(borrowRecordId);
+    const userId = ctx.params.userId;
+    const bookId = ctx.params.bookId;
 
-    if (!borrowRecord) {
+    // 查找用户和书籍
+    const user = await User.findById(userId);
+    const book = await Book.findById(bookId);
+
+    if (!user || !book) {
       ctx.status = 404;
       ctx.body = {
-        msg: '借阅记录不存在',
+        msg: '用户或书籍不存在',
         code: 0
       };
       return;
     }
 
-    borrowRecord.returned = true;
-    borrowRecord.returnDate = Date.now();
+    // 查找第一条未归还的借阅记录并更新
+    const borrowRecord = await BorrowRecord.findOneAndUpdate(
+      { user: userId, book: bookId, returned: false }, // 查询条件
+      { returned: true, returnDate: Date.now() }, // 更新内容
+      { new: true } // 返回更新后的文档
+    );
 
-    await borrowRecord.save();
+    if (!borrowRecord) {
+      ctx.status = 404;
+      ctx.body = {
+        msg: '未找到未归还的借阅记录',
+        code: 0
+      };
+      return;
+    }
 
     ctx.body = {
       msg: '借阅记录已更新',
@@ -151,6 +165,7 @@ router.put('/:id/return', async (ctx) => {
     };
   }
 });
+
 
 // 更新借阅记录（标记续借）
 router.put('/:id/renew', async (ctx) => {

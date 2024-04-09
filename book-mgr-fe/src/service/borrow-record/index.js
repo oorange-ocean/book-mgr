@@ -22,8 +22,8 @@ export const getBorrowRecordByBook = (bookId) => {
   return get(`/borrow-record/book/${bookId}`);
 };
 
-export const markReturned = (recordId) => {
-  return put(`/borrow-record/${recordId}/return`);
+export const markReturned = (userId, bookId) => {
+  return put(`/borrow-record/${userId}/${bookId}/return`);
 };
 
 export const markRenewed = (recordId) => {

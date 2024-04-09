@@ -19,8 +19,8 @@
         <div>
           <a-table :data-source="curLogType === 'unreturned' ? unreturnedBooks : returnedBooks" :columns="curLogType === 'unreturned' ? unreturnedColumns : returnedColumns">
             <template #actions="{ record }">
-              <a-button type="primary" size="small" v-if="curLogType === 'unreturned'" @click="returnBook(record._id)">归还</a-button>&nbsp;
-              <a-button type="primary" size="small" v-if="curLogType === 'unreturned'" @click="renewBook(record._id)">续借</a-button>
+              <a-button type="primary" size="small" v-if="curLogType === 'unreturned'" @click="returnBook(record)">归还</a-button>&nbsp;
+              <a-button type="primary" size="small" v-if="curLogType === 'unreturned'" @click="renewBook(record)">续借</a-button>
             </template>
           </a-table>
         </div>

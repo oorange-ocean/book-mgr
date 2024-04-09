@@ -1,10 +1,16 @@
 import { defineComponent, ref, onMounted } from 'vue';
-import { borrowRecord } from '@/service';
+import { book, borrowRecord } from '@/service';
 import { formatTimestamp } from '@/helpers/utils';
 import store from '@/store';
 import dayjs from 'dayjs'
+import { CheckOutlined } from '@ant-design/icons-vue'
+import { result } from '@/helpers/utils';
+import { message } from 'ant-design-vue'
 
 export default defineComponent({
+  components: {
+    CheckOutlined
+  },
   setup() {
     const userId = store.state.userInfo._id;
     const unreturnedBooks = ref([]);
@@ -31,15 +37,21 @@ export default defineComponent({
 
     const fetchBorrowRecords = async () => {
       const res = await borrowRecord.getBorrowRecordByUser(userId);
-      console.log(res);
+      // console.log(res);
       if (res && res.data) {
         unreturnedBooks.value = res.data.data.filter(record => !record.returned);
         returnedBooks.value = res.data.data.filter(record => record.returned);
       }
     };
 
-    const returnBook = async (recordId) => {
-      await borrowRecord.markReturned(recordId);
+    const returnBook = async ({ bookId }) => {
+      // console.log(record);
+
+      const res = await borrowRecord.markReturned(store.state.userInfo._id, bookId);
+      result(res)
+        .success(({ msg }) => {
+          message.success(msg)
+        })
       fetchBorrowRecords();
     };
 
