@@ -44,13 +44,19 @@ export default defineComponent({
       }
     };
 
-    const returnBook = async ({ recordId }) => {
-      const res = await borrowRecord.markReturned(recordId);
+    const returnBook = async ({ recordId, bookId }) => {
+      let res = await borrowRecord.markReturned(recordId);
       result(res)
         .success(({ msg }) => {
           message.success(msg)
         })
       fetchBorrowRecords();
+      res = await book.updateCount({
+        id: bookId,
+        num: 1,
+        type: 'IN_COUNT'
+      })
+
     };
 
     const renewBook = async ({ recordId }) => {

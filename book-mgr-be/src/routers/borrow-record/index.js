@@ -9,18 +9,17 @@ const router = new Router({
 });
 
 // 创建借阅记录
-// 创建借阅记录
 router.post('/add', async (ctx) => {
   try {
     const { userId, bookId } = ctx.request.body;
 
-    // 检查该书籍是否已经被借阅过
-    const existingRecord = await BorrowRecord.findOne({ user: userId, book: bookId });
+    // 检查该书籍是否已经被借阅过且尚未归还
+    const existingRecords = await BorrowRecord.find({ user: userId, book: bookId, returned: false });
 
-    if (existingRecord) {
+    if (existingRecords.length > 0) {
       // ctx.status = 400;
       ctx.body = {
-        msg: '该书籍已经被借阅过，不可再次借阅',
+        msg: '该书籍已经被借阅过且尚未归还，不可再次借阅',
         code: 0
       };
       return;
@@ -30,7 +29,7 @@ router.post('/add', async (ctx) => {
     const book = await Book.findById(bookId);
 
     if (!user || !book) {
-      // ctx.status = 404;
+      ctx.status = 404;
       ctx.body = {
         msg: '用户或书籍不存在',
         code: 0

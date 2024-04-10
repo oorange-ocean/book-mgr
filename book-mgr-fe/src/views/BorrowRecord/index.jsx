@@ -93,35 +93,38 @@ export default defineComponent({
       const bookId = record._id;
       const userId = store.state.userInfo._id;
       const BorrowTime = Date.now()
+
       let res = await borrowRecord.addBorrowRecord(userId, bookId, BorrowTime)
       result(res)
         .success(({ msg }) => {
           message.success(msg);
         })
 
-      res = await book.updateCount({
-        id: record._id,
-        num: 1,
-        type: 'OUT_COUNT'
-      })
+      console.log(res);
 
-      result(res)
-        .success((data) => {
+      // 仅在借阅成功时更新库存
+      if (res.data.code === 1) {
+        res = await book.updateCount({
+          id: record._id,
+          num: 1,
+          type: 'OUT_COUNT'
+        })
 
-          const one = list.value.find((item) => {
-            return item._id === record._id;
+        result(res)
+          .success((data) => {
+            const one = list.value.find((item) => {
+              return item._id === record._id;
+            });
+
+            if (one) {
+              one.count = one.count - 1;
+            }
           });
-
-          if (one) {
-            one.count = one.count - 1;
-
-
-          }
-        });
+      }
 
       getList()
-
     }
+
 
 
     return {
