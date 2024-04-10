@@ -11,6 +11,10 @@ const excludedUrlPatterns = [
   /^\/log\/delete/,
   /^\/book\/list/,
   /^\/user\/list/,
+  /^\/dashboard\/base-info/,
+  /^\/book-classify\/list/,
+
+
 ]; // Add more patterns to exclude if needed
 
 const logMiddleware = async (ctx, next) => {

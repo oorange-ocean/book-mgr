@@ -26,6 +26,11 @@ export default defineComponent({
     };
 
     const submit = async () => {
+      // 校验表单数据
+      if (!validateFormData(addForm)) {
+        return; // 如果校验失败，不执行后续操作
+      }
+
       const form = clone(addForm);
 
       const res = await user.add(form.account, form.password, form.character);
@@ -38,6 +43,17 @@ export default defineComponent({
           context.emit('getUser');
         });
     };
+
+    // 校验表单数据的方法
+    const validateFormData = (formData) => {
+      // 这里可以根据实际情况编写数据校验逻辑
+      // 比如检查是否所有字段都有值，密码是否符合要求等
+      if (!formData.account || !formData.password || !formData.character) {
+        message.error('请填写完整的表单数据');
+        return false;
+      }
+      return true;
+    }
 
     return {
       addForm,
